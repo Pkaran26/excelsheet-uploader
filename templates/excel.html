@@ -1,0 +1,95 @@
+{% load telapp_extras %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Telegram Groups</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style media="screen">
+      table tr th:first-child{
+        width:20px;
+      }
+      table tr th:last-child{
+        width:110px;
+      }
+      .adduser{
+        width:120px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Excel Upload</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor02">
+      </div>
+    </nav>
+    <div class="container-fluid" style="margin-top:20px">
+      <div class="card bg-light">
+        <div class="card-body">
+          <div class="card bg-light">
+            <div class="card-body">
+              <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+              <div class="row">
+
+                <div class="col-lg-3 col-md-3">
+                  <div class="form-group">
+                    <label for="">Upload</label>
+                    <input type="file" id="group2" style="padding:3px;" required class="form-control" name="excel_file" />
+                    <span id="file_info" class="text-danger"></span>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3">
+                  <input type="submit" name="Upload" id="Upload" style="margin-top:32px;" class="btn btn-primary" value="Upload"/>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card border-secondary">
+                <div class="card-header bg-light">
+                  <strong id="grp2">{{group2}}</strong>
+                </div>
+                <div class="card-body" style="height:400px;overflow-x:auto">
+                  <table id="grp2table" class="table addedUser">
+                    <tr>
+                      <th>SNo</th>
+                      <th>Username</th>
+                    </tr>
+                    {% if excel_error %}
+                    <tr>
+                      <td colspan="4" class="text-center">
+                        <strong class="text-danger">{{excel_error}}</strong>
+                      </td>
+                    </tr>
+                    {% endif %}
+                    {% for u in excel_data %}
+                      <tr id="{{forloop.counter }}" class="users2">
+                        <td>{{forloop.counter }}.</td>
+                        <td style="">{{u.username}}</td>
+                      </tr>
+                    {% endfor %}
+                  </table>
+                </div>
+                <div class="card-footer">
+
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="/static/main.js" charset="utf-8"></script>
+  </body>
+</html>
